@@ -4,10 +4,7 @@ import aifc
 import scipy.signal as sp
 import scipy
 import math
-import codecs
-import json
 from math import sqrt
-import tensorflowjs as tfjs
 from scipy.signal import butter, lfilter, freqz, filtfilt
 import array
 import wave
@@ -16,12 +13,8 @@ from sklearn.preprocessing import MinMaxScaler
 import matplotlib.pyplot as plt
 from keras.models import load_model
 import scipy.signal as sp
-import scipy
 import copy
 from scipy.io import wavfile
-import librosa
-import librosa.display
-import IPython.display as ipd
 import pylab as pl
 from matplotlib import mlab
 import tensorflow as tf

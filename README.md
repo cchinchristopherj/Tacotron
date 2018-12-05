@@ -11,7 +11,7 @@ The original [Tacotron paper](https://arxiv.org/pdf/1703.10135.pdf) describes a 
 
 ![CBHG](https://github.com/cchinchristopherj/Tacotron/blob/master/CBHG.png)
 
-*Source: [Tacotron: Towards End-To-End Speech Synthesis](https://arxiv.org/pdf/1703.10135.pdf)*
+*CBHG Module. Image Source: [Tacotron: Towards End-To-End Speech Synthesis](https://arxiv.org/pdf/1703.10135.pdf)*
 
 For simplicity, the decoder targets are 80-band mel spectrograms (a compressed representation that can be used by a post-processing-net later on in the model to synthesize raw spectrograms). This post-processing-net is once again composed of a CBHG module, which learns to predict spectral magnitudes on a linear frequency scale (due to the use of the Griffin-Lim algorithm to create waveforms). A final important design choice made by the authors was the prediction of groups of non-overlapping spectrogram frames for each step of the decoder (instead of one frame at a time). This design choice reduced the total number of decoder steps, the model size, and increased convergence speed.
 

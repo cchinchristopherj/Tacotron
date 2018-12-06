@@ -7,6 +7,9 @@ Deep learning has made tremendous leaps and bounds in the field of speech synthe
 
 The goal of this application was to synthesize a 2-second-long audio waveform of a right whale upcall via generative modeling. Due to the computationally-intensive requirements of sample-level generation, a model based on Tacotron that predicted spectrogram images (of much lower dimensionality than raw audio waveforms) was taken up first. 
 
+Model Architecture
+=========================
+
 The original [Tacotron paper](https://arxiv.org/pdf/1703.10135.pdf) describes a CBHG module (1-D convolution bank + highway network + Bidirectional GRU) capable of extracting excellent representations from sequences by convolving the sequence first with a bank of 1-D convolutional filters to extract local information, passing it through a highway network to extract higher-level features, and finally passing the sequence through a Bidirectional GRU to learn long-term dependencies in the forward and backward directions. In the Tacotron model, an encoder uses this CBHG module to extract a sequential representation of input text, which the attention-based decoder uses to create a sequence of spectrogram frames that can be used to synthesize the correspnoding waveform. 
 
 ![CBHG](https://github.com/cchinchristopherj/Tacotron/blob/master/CBHG.png)
@@ -18,6 +21,9 @@ For simplicity, the decoder targets are 80-band mel spectrograms (a compressed r
 For the purposes of this application, the neural network has a much simpler task: predicting the next spectrogram frame based on the previous spectrogram frame (and information also learned from all previous frames in the sequence). A seq2seq model with attention is not necessary, since text to speech conversion is not performed, and much of the complexity of the Tacotron model can be removed (such as the use of highway networks, banks of 1-D convolutional filters, etc.). The prediction of (compressed) 80-band mel spectograms is also not necessary, since the low sampling rate of the audio recordings in the dataset (2000 samples/second) means only 129 frequency bins are needed per spectrogram. The model can therefore directly predict linear spectrogram frames for the Griffin-Lim algorithm. 
 
 After initial experimentation, a simple neural network incorporating fully-connected layers, 1-D max pooling to provide translation invariance, and a stacked (two-layer) RNN comprised of Bidirectional GRUs was decided upon. The stacked Bidirectional RNN was specifically chosen for its ability to learn long-term dependencies in sequences in both the forward and backward directions, making it especially applicable for this task of learning sequences of spectrogram frames. 
+
+Results
+=========================
 
 For the purpose of comparison, here are two representative examples of spectrograms from the training set, in which the corresponding audio files were bandpass-filtered between 50Hz and 440Hz (the characteristic frequency range of upcalls).
 
@@ -89,3 +95,10 @@ Then run:
     python tacotron.py
     
 This trains the weights of the neural network on the dataset, saves the architecture and weights of the model to your hard disk as a Keras HDF5 file, and predicts a new spectrogram (with corresponding audio waveform synthesized by the Griffin-Lim algorithm also saved to your hard disk). 
+
+References
+=========================
+
+Mehri, Soroush, et al. ["SampleRNN: An Unconditional End-To-End Neural Audio Generation Model."](https://arxiv.org/pdf/1612.07837.pdf) *arXiv preprint arXiv:1612.07837*, 2017
+
+Wang, Yuxuan, et al. ["Tacotron: Towards End-To-End Speech Synthesis."](https://arxiv.org/pdf/1703.10135.pdf) *arXiv preprint arXiv:1703.10135*, 2017

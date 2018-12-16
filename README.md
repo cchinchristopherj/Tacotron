@@ -57,7 +57,7 @@ After training for 5 epochs, the neural network was tasked with predicting a new
 
 ![manyframes](https://github.com/cchinchristopherj/Tacotron/blob/master/manyframes.png)
 
-*The upcall shape is still not present. However, the neural network appears to be closer to capturing the higher magnitude values (indicated by the brighter yellow colors) associated with frequencies of the upcall. 
+*The upcall shape is still not present. However, the neural network appears to be closer to capturing the higher magnitude values (indicated by the brighter yellow colors) associated with frequencies of the upcall.*
 
 The corresponding audio waveform synthesized via the Griffin-Lim algorithm can be found [here](https://github.com/cchinchristopherj/Tacotron/blob/master/tacotron_manyframes.mp3)
 
